@@ -204,12 +204,27 @@ footer{
     <input type="number" id="gold" value="0">
 </div>
 
-<!-- New item: Stainless with Gold Chafing Dish -->
 <div class="card">
     <img src="images/chafing5.jpg">
     <h3>Stainless with Gold Chafing Dish</h3>
     <p>$25</p>
     <input type="number" id="stainlessgold" value="0">
+</div>
+
+<!-- NEW: Chafing Fuel -->
+<div class="card">
+    <img src="images/fuel.jpg">
+    <h3>Chafing Fuel (12 pack)</h3>
+    <p>$25</p>
+    <input type="number" id="fuel" value="0">
+</div>
+
+<!-- NEW: Drinking Glasses -->
+<div class="card">
+    <img src="images/glasses.jpg">
+    <h3>Drinking Glasses</h3>
+    <p>$1.00</p>
+    <input type="number" id="glasses" value="0">
 </div>
 
 <div class="card">
@@ -257,6 +272,7 @@ function calculate(){
     let servers = document.getElementById("servers").value
     let hours = document.getElementById("hours").value
     if(hours < 5){hours = 5}
+
     let total =
     (servers * hours * 18) +
     (document.getElementById("cutlery").value * 1.5) +
@@ -267,18 +283,24 @@ function calculate(){
     (document.getElementById("rolltop").value * 30) +
     (document.getElementById("rectroll").value * 30) +
     (document.getElementById("stainless").value * 25) +
-    (document.getElementById("gold").value * 25) +
-    (document.getElementById("stainlessgold").value * 35) // New item
+    (document.getElementById("gold").value * 35) +
+    (document.getElementById("stainlessgold").value * 25) +
+    (document.getElementById("fuel").value * 25) +
+    (document.getElementById("glasses").value * 1)
+
     document.getElementById("total").innerText = total.toFixed(2)
 }
 
 function generateInvoice(){
     calculate()
+
     let count = localStorage.getItem("invoiceCount") || 0
     count++
     localStorage.setItem("invoiceCount", count)
+
     let invoiceNumber = "INV-" + String(count).padStart(4,'0')
     document.getElementById("invoiceNumber").innerText = invoiceNumber
+
     document.getElementById("invName").innerText = document.getElementById("customerName").value
     document.getElementById("invPhone").innerText = document.getElementById("customerPhone").value
     document.getElementById("invDate").innerText = document.getElementById("eventDate").value
@@ -295,7 +317,9 @@ function generateInvoice(){
         ["Rectangular Roll Top","rectroll"],
         ["Stainless Chafing Dish","stainless"],
         ["Gold Chafing Dish","gold"],
-        ["Stainless with Gold Chafing Dish","stainlessgold"] // New item
+        ["Stainless with Gold Chafing Dish","stainlessgold"],
+        ["Chafing Fuel (12 pack)","fuel"],
+        ["Drinking Glasses","glasses"]
     ]
 
     ids.forEach(i=>{
